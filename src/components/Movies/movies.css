@@ -1,0 +1,26 @@
+.movies__button-else {
+  width: 320px;
+  height: 36px;
+  background-color: rgba(47, 47, 47, 1);
+  background-position: center;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ffffff;
+  margin: 60px auto 80px;
+  padding: 0;
+  border-radius: 6px;
+  border: 0;
+}
+
+.movies__button-else:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .movies__button-else {
+    width: 240px;
+    margin: 40px auto 98px;
+  }
+}

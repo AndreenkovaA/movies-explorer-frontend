@@ -1,0 +1,122 @@
+.portfolio {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(32, 32, 32, 1);
+  margin: 0 auto;
+}
+
+.portfolio__elements {
+  width: calc(100% - 140px);
+  max-width: 1140px;
+  margin-bottom: 110px;
+}
+
+@media screen and (max-width: 800px) {
+  .portfolio__elements {
+    width: calc(100% - 100px);
+    margin-bottom: 75px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .portfolio__elements {
+    width: calc(100% - 28px);
+    margin-bottom: 70px;
+  }
+}
+
+.portfolio__title {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: rgba(139, 139, 139, 1);
+  margin: 100px auto 60px 0;
+}
+
+@media screen and (max-width: 800px) {
+  .portfolio__title {
+    margin-top: 91px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .portfolio__title {
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 68px;
+    margin-bottom: 41px;
+  }
+}
+
+.portfolio__group {
+  max-width: 1140px;
+  margin: 33px auto 0 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px rgba(66, 66, 66, 1);
+  text-decoration: none;
+}
+
+.portfolio__group:hover {
+  opacity: 0.7;
+}
+
+.portfolio__group:nth-last-child(1) {
+  border-bottom: 0;
+}
+
+@media screen and (max-width: 800px) {
+  .portfolio__group {
+    border-bottom: solid 1px rgba(230, 230, 230, 1);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .portfolio__group {
+    margin-top: 20px;
+  }
+}
+
+.portfolio__textlink {
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 37px;
+  letter-spacing: -1.1px;
+  color: #ffffff;
+  margin: 0 auto 19px 0;
+}
+
+@media screen and (max-width: 800px) {
+  .portfolio__textlink {
+    font-size: 28px;
+    line-height: 28px;
+    margin-bottom: 28px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .portfolio__textlink {
+    font-size: 18px;
+    line-height: 28px;
+    margin-bottom: 19px;
+    letter-spacing: -0.8px;
+  }
+}
+
+.portfolio__pointer {
+  width: 29px;
+  height: 60px;
+  background-image: url(../../../images/__pointer.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: -14px;
+}
+
+@media screen and (max-width: 500px) {
+  .portfolio__pointer {
+    width: 18px;
+    height: 28px;
+    background-image: url(../../../images/__pointer-mobil.svg);
+    margin-top: -1px;
+  }
+}

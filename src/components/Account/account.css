@@ -1,0 +1,24 @@
+.account__link {
+  height: 16px;
+  color: #ffffff;
+  font-size: 13px;
+  line-height: 18px;
+  text-decoration: none;
+  padding-top: 9px;
+  margin: 0;
+}
+
+.account__link:nth-last-child(1) {
+  margin-left: 16px;
+}
+
+.account__icon {
+  width: 26px;
+  height: 26px;
+  margin: 6px 0 auto 7px;
+  background-image: url(../../images/__icon-account.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(49, 49, 49, 1);
+  border-radius: 26px;
+}
