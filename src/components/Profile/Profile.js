@@ -6,7 +6,7 @@ const Profile = () => {
   return (
     <>
       <div className='profile'>
-        <p className='auth__title auth__title_type_profile'>Привет, Анастасия!</p>
+        <p className='profile__title'>Привет, Анастасия!</p>
         <div>
           <div className='profile__group'>
             <p className='profile__text'>Имя</p>

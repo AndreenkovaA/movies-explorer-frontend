@@ -26,8 +26,8 @@ function Header(props) {
 
   return (
     <header className={`header${props.loggedIn ? ' header_type_profile' : ''}`}>
-      <div className='element header__elements'>
-      <div className='header__logo'></div>
+      <div className='header__elements'>
+      <Link to='/' className='header__logo'></Link>
         {
           props.loggedIn &&
           <>
@@ -45,9 +45,7 @@ function Header(props) {
                 <NavLink to='/movies' className="header__link-nav" style={({ isActive }) => {return {fontWeight: isActive ? "500" : "400"};}}>Фильмы</NavLink>
                 <NavLink to='/saved-movies' className="header__link-nav" style={({ isActive }) => {return {fontWeight: isActive ? "500" : "400"};}}>Сохраненные фильмы</NavLink>
               </div>
-              <Link to='/profile' className='header__group'>
-                <Account />
-              </Link>
+              <Account />
             </>
           }
         </>         

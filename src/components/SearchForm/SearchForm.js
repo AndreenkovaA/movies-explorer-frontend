@@ -23,10 +23,10 @@ function SearchForm() {
     <>
       {isMobile &&
         <div className='searchForm'>
-          <div className='searchForm__search-input'>
+          <form className='searchForm__search-input'>
             <input className="searchForm__input" id="movies" name="movies" type="movies" placeholder='Фильм' required />
             <button className='searchForm__button-search' type='button'>Найти</button>
-          </div>
+          </form>
           <div className='searchForm__container'>
             <FilterCheckbox />
           </div>

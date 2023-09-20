@@ -1,5 +1,6 @@
 .auth {
-  display: block;
+  display: flex;
+  flex-direction: column;
   width: 396px;
   margin: 70px auto auto;
 }
@@ -29,29 +30,30 @@
   }
 }
 
+.auth__logo {
+  width: 38px;
+  height: 38px;
+  margin: 18px 45px 18px 0;
+  background-image: url(../../images/__logo.svg);
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 400px) {
+  .auth__logo {
+    margin: 0 auto 50px;
+  }
+}
+
 .auth__title {
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
   color: #ffffff;
-  margin: 40px auto;
+  margin: 40px auto 40px 0;
 }
 
-.auth__title_type_profile {
-  text-align: center;
-  margin-bottom: 106px;
-}
-
-@media screen and (max-width: 800px) {
-  .auth__title_type_profile {
-    margin-bottom: 80px;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .auth__title_type_profile {
-    margin-bottom: 65px;
-  }
+.auth__title_type_auth {
+  margin-right: 0;
 }
 
 @media screen and (max-width: 400px) {
@@ -186,19 +188,3 @@
     line-height: 14px;
   }
 }
-
-/* .auth__item-error {
-  display: flex;
-  max-width: 358px;
-  width: 100%;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 12px;
-  color: #ffffff;
-  margin: 5px auto 0 36px;
-  position: fixed;
-}
-
-.auth__item-error_active {
-  color: #ff0000;
-} */

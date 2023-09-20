@@ -5,11 +5,9 @@ const Register = () => {
 
   return (
     <div className="auth">
-      <div className='auth__container'>
-        <div className='header__logo header__logo_type_auth'></div>
-        <p className="auth__title auth__title_type_auth">Добро пожаловать!</p>
-      </div>
-      <form className="form__auth">
+      <Link to='/' className='auth__logo'></Link>
+      <p className="auth__title auth__title_type_auth">Добро пожаловать!</p>
+      <form className="auth__form">
         <label className='auth__field'>
           Имя
           <input className="auth__input" id="name" name="name" type="name" required minLength={2}/>

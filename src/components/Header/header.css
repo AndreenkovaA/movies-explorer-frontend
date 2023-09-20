@@ -10,6 +10,8 @@
 }
 
 .header__elements {
+  display: flex;
+  justify-content: space-between;
   width: calc(100% - 140px);
   max-width: 1140px;
 }

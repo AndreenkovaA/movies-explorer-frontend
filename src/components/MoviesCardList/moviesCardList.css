@@ -1,3 +1,8 @@
+.moviesCardList {
+  display: flex;
+  flex-direction: column;
+}
+
 .moviesCardList__grid {
   max-width: 1140px;
   width: calc(100% - 140px);
@@ -29,5 +34,32 @@
     grid-template-columns: 300px;
     gap: 12px;
     margin-top: 50px;
+  }
+}
+
+.moviesCardList__button-else {
+  width: 320px;
+  height: 36px;
+  background-color: rgba(47, 47, 47, 1);
+  background-position: center;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ffffff;
+  margin: 60px auto 80px;
+  padding: 0;
+  border-radius: 6px;
+  border: 0;
+}
+
+.moviesCardList__button-else:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .moviesCardList__button-else {
+    width: 240px;
+    margin: 40px auto 98px;
   }
 }

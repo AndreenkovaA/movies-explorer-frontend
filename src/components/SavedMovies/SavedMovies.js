@@ -8,9 +8,7 @@ function SavedMovies(props) {
   return (
     <>
       <SearchForm />
-      <div className='elements'>
-        <MoviesCardList movies={initialCards} savedPage={props.savedPage} />
-      </div>
+      <MoviesCardList movies={initialCards} savedPage={props.savedPage} />
     </>
   );
 }

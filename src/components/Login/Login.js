@@ -5,9 +5,9 @@ const Login = () => {
 
   return (
     <div className="auth">
-      <div className='header__logo header__logo_type_auth'></div>
+      <Link to='/' className='auth__logo'></Link>
       <p className="auth__title auth__title_type_auth">Рады видеть!</p>
-      <form className="form__auth">
+      <form className="auth__form">
         <label className='auth__field'>
           E-mail
           <input className="auth__input" id="email" name="email" type="email" required />

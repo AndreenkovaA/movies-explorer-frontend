@@ -1,8 +1,6 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts.css);
 @import url(./blocks/page/page.css);
-@import url(./blocks/element/element.css);
-@import url(./blocks/elements/elements.css);
 @import url(./components/Header/header.css);
 @import url(./components/Account/account.css);
 @import url(./components/Popup/popup.css);
@@ -16,7 +14,6 @@
 @import url(./blocks/auth/auth.css);
 @import url(./components/SearchForm/searchForm.css);
 @import url(./components/FilterCheckbox/filterCheckbox.css);
-@import url(./components/Movies/movies.css);
 @import url(./components/MoviesCardList/moviesCardList.css);
 @import url(./components/MoviesCard/moviesCard.css);
 @import url(./components/PageNotFound/pageNotFound.css);

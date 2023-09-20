@@ -13,7 +13,6 @@ function MoviesCardList(props) {
   useEffect(() => {
     function handleResize() {
       setWindowDimension(window.innerWidth);
-      console.log(window.innerWidth);
     }
 
     window.addEventListener("resize", handleResize);
@@ -24,17 +23,12 @@ function MoviesCardList(props) {
     if (windowDimension <= 444) { 
       setInitMoviesNum(5);
       setMoviesNum(5);
-      console.log(window.innerWidth);
     } else if (windowDimension <= 768) { 
       setInitMoviesNum(8);
       setMoviesNum(8);
-      console.log(2);
-      console.log(windowDimension);
     } else { 
       setInitMoviesNum(16); 
       setMoviesNum(16);
-      console.log('base');
-      console.log(windowDimension);
     } 
   }, [windowDimension]);  
 
@@ -47,15 +41,15 @@ function MoviesCardList(props) {
   return (
     <>
       <div className='moviesCardList'>
-      <div className='moviesCardList__grid'>
-        {
-          moviesList().map((movie, index) => (
-            <MoviesCard key={ `movie-${index}` } movie={ movie } savedPage={props.savedPage}/>
-          ))
-        }
+        <div className='moviesCardList__grid'>
+          {
+            moviesList().map((movie, index) => (
+              <MoviesCard key={ `movie-${index}` } movie={ movie } savedPage={props.savedPage}/>
+            ))
+          }
+        </div>
+        <button className='moviesCardList__button-else' onClick={addMovies}>Ещё</button>
       </div>
-    </div>
-    <button className='movies__button-else' onClick={addMovies}>Ещё</button>
     </>
   );
 }

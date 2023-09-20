@@ -13,9 +13,7 @@ function Popup(props) {
       <NavLink to='/' className='popup__link' style={({ isActive }) => {return {textDecoration: isActive ? "underline" : "none"};}}>Главная</NavLink>
       <NavLink to='/movies' className='popup__link' style={({ isActive }) => {return {textDecoration: isActive ? "underline" : "none"};}}>Фильмы</NavLink>
       <NavLink to='/saved-movies' className='popup__link' style={({ isActive }) => {return {textDecoration: isActive ? "underline" : "none"};}}>Сохраненные фильмы</NavLink>
-      <NavLink to='/profile' className='popup__group'>
-        <Account />
-      </NavLink>
+      <Account headerPop/>
     </div>
   );
 }

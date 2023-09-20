@@ -8,9 +8,7 @@ function Movies() {
   return (
     <>
       <SearchForm />
-      <div className='elements'>
-        <MoviesCardList movies={initialCards} />
-      </div>
+      <MoviesCardList movies={initialCards} />
     </>
   );
 }
