@@ -98,4 +98,5 @@
 .profile__textlink_type_exit {
   margin-top: 16px;
   color: rgba(238, 52, 101, 1);
+  cursor: pointer;
 }

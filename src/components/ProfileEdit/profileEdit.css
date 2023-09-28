@@ -1,0 +1,57 @@
+.profileEdit__input {
+  border: 0;
+  background-color: rgba(32, 32, 32, 1);
+  text-align: right;
+}
+
+.profileEdit__button-submit {
+  width: 410px;
+  height: 45px;
+  background-color: rgba(66, 133, 244, 1);
+  background-position: center;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+  margin: 20px auto 16px;
+  padding: 0;
+  border-radius: 3px;
+  border: 0;
+}
+
+.profileEdit__button-submit:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .profileEdit__button-submit {
+    margin-top: 195px;
+  }
+}
+
+.profileEdit__button-submit_type_disabled {
+  background-color: rgba(248, 248, 248, 1);
+  color: rgba(194, 194, 194, 1);
+}
+
+.profileEdit__text {
+  color: rgba(255, 0, 76, 1);
+}
+
+.profileEdit__container {
+  margin-top: 204px;
+  color: rgba(255, 0, 76, 1);
+}
+
+@media screen and (max-width: 800px) {
+  .profileEdit__container {
+    margin-top: 196px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .profileEdit__container {
+    margin-top: 365px;
+  }
+}

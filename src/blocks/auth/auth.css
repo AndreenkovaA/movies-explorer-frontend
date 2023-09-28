@@ -8,7 +8,6 @@
 @media screen and (max-width: 800px) {
   .auth {
     margin-top: 232px;
-    align-items: center;
   }
 }
 
@@ -21,12 +20,6 @@
 @media screen and (max-width: 400px) {
   .auth {
     margin-top: 56px;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .auth__container {
-    display: block;
   }
 }
 
@@ -59,7 +52,7 @@
 @media screen and (max-width: 400px) {
   .auth__title_type_auth {
     text-align: center;
-    margin: 50px auto 80px;
+    margin: 0 auto 80px;
   }
 }
 
@@ -87,7 +80,7 @@
   vertical-align: top;
   border-bottom: 1px solid rgba(66, 66, 66, 1);
   padding: 5px 0 10px;
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
   color: #ffffff;
 }
 
@@ -100,7 +93,7 @@
   font-size: 14px;
   line-height: 17px;
   color: #ffffff;
-  margin: 110px auto 16px;
+  margin: 0 auto 16px;
   padding: 0;
   border-radius: 3px;
   border: 0;
@@ -111,42 +104,14 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 800px) {
-  .auth__button-submit {
-    margin-top: 195px;
-  }
-}
-
 .auth__button-submit_type_disabled {
   background-color: rgba(248, 248, 248, 1);
   color: rgba(194, 194, 194, 1);
 }
 
-.auth__button-submit_type_login {
-  margin-top: 179px;
-}
-
-@media screen and (max-width: 800px) {
-  .auth__button-submit_type_register {
-    margin-top: 128px;
-  }
-}
-
 @media screen and (max-width: 500px) {
   .auth__button-submit {
     width: 260px;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .auth__button-submit_type_login {
-    margin-top: 285px;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .auth__button-submit_type_register {
-    margin-top: 216px;
   }
 }
 
@@ -187,4 +152,47 @@
     font-size: 12px;
     line-height: 14px;
   }
+}
+
+.auth__container {
+  height: 14px;
+  margin: 76px auto 20px;
+}
+
+@media screen and (max-width: 500px) {
+  .auth__container {
+    margin-top: 192px;
+  }
+}
+
+.auth__container_type_login {
+  margin-top: 145px;
+}
+
+@media screen and (max-width: 500px) {
+  .auth__container_type_login {
+    margin-top: 261px;
+  }
+}
+
+.auth__texterror {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(255, 0, 76, 1);
+  text-align: center;
+  margin: 0;
+}
+
+.auth__error {
+  height: 14px;
+  margin: 6px auto 4px 0;
+}
+
+.auth__error-text {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: rgba(255, 0, 76, 1);
+  margin: 0;
 }

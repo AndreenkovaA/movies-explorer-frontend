@@ -1,32 +1,79 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Preloader from '../Preloader/Preloader';
+import { emailIsValid, passwordIsValid } from '../../utils/utils';
+import { EMAIL_IS_NOT_VALID, PASSWORD_IS_NOT_VALID } from '../../utils/constants';
 
-const Login = () => {
+const Login = ({onLogin, loading, loginStatus}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onInputChange = (e, func) => {
+    func(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (submitDisable()) {
+      return;
+    }
+    onLogin(email, password);
+  };
+
+  const submitDisable = () => (!emailIsValid(email) || !passwordIsValid(password));
 
   return (
-    <div className="auth">
-      <Link to='/' className='auth__logo'></Link>
-      <p className="auth__title auth__title_type_auth">Рады видеть!</p>
-      <form className="auth__form">
-        <label className='auth__field'>
-          E-mail
-          <input className="auth__input" id="email" name="email" type="email" required />
-        </label>
-        <lable className='auth__field'>
-          Пароль
-          <input className="auth__input" id="password" name="password" type="password" required />
-        </lable>
-        <div className="auth__button-container">
-          <button className='auth__button-submit auth__button-submit_type_login auth__button-submit_type_disabled' type="submit">Войти</button>
+    <>
+      {loading && <Preloader/>}
+      {
+      !loading &&
+      <div className="auth">
+        <Link to='/' className='auth__logo'></Link>
+        <p className="auth__title auth__title_type_auth">Рады видеть!</p>
+        <form className="auth__form">
+          <div className='auth__field'>
+            E-mail
+            <input className="auth__input" id="email" name="email" type="email" onChange={(e) => onInputChange(e, setEmail)} required />
+          </div>
+          <div className='auth__error'>
+            {
+              !!email.length && !emailIsValid(email) &&
+              <p className='auth__error-text'>{EMAIL_IS_NOT_VALID}</p>
+            }
+          </div>
+          <div className='auth__field'>
+            Пароль
+            <input className="auth__input" id="password" name="password" type="password" onChange={(e) => onInputChange(e, setPassword)} required />
+          </div>
+          <div className='auth__error'>
+            {
+              !!password.length && !passwordIsValid(password) &&
+                <p className='auth__error-text'>{PASSWORD_IS_NOT_VALID}</p>
+            }
+          </div>
+          <div className='auth__container auth__container_type_login'>
+            {
+              loginStatus &&
+              <p className='auth__texterror'>{loginStatus}</p>
+            }
+          </div>
+          <button
+            className={`auth__button-submit ${submitDisable() ? 'auth__button-submit_type_disabled' : ''}`}
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Войти
+          </button>
+        </form>
+        <div className="auth__signin">
+          <p className="auth__question">Ещё не зарегистрированы?</p>
+          <Link to="/signup" className='auth__login-link'>Регистрация</Link>
         </div>
-      </form>
-      <div className="auth__signin">
-        <p className="auth__question">Ещё не зарегистрированы?</p>
-        <Link to="/signup" className='auth__login-link'>Регистрация</Link>
       </div>
-    </div>
+      }
+    </>
+
   );
 }
 
-
-export default Login; 
+export default Login;
