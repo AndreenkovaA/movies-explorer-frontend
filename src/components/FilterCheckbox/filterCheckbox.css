@@ -1,0 +1,64 @@
+.filterCheckbox {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.filterCheckbox-label {
+  cursor: pointer;
+  width: 36px;
+  height: 20px;
+  background: rgba(52, 52, 52, 1);
+  display: block;
+  border-radius: 20px;
+  position: relative;
+  text-indent: -9999px;
+}
+
+.filterCheckbox-label:after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 15px;
+  height: 15px;
+  background: rgba(160, 160, 160, 1);
+  border-radius: 16px;
+  border: 1px solid #ffffff;
+  transition: 0.1s;
+}
+
+.filterCheckbox:checked + .filterCheckbox-label:after {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+  background: rgba(43, 224, 128, 1);
+}
+
+.filterCheckbox-label:active:after {
+  width: 20px;
+}
+
+.filterCheckbox-text {
+  max-width: 117px;
+  width: 100%;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  margin-left: 14px;
+}
+
+@media screen and (max-width: 800px) {
+  .filterCheckbox-text {
+    margin-left: 15px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .filterCheckbox-text {
+    max-width: 99px;
+    font-size: 11px;
+    line-height: 15px;
+    margin-left: 13px;
+  }
+}
