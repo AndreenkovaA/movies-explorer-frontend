@@ -1,7 +1,7 @@
 import React, {useState, useEffect } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({onSubmit, searchText, setSearchText, shortMovies, setShortMovies}) {
+function SearchForm({searchText, shortMovies, setShortMovies, setLoading, onSearchSubmit}) {
   const [windowDimension, setWindowDimension] = useState(null);
   const [inputValue, setInputValue] = useState(searchText);
 
@@ -21,11 +21,10 @@ function SearchForm({onSubmit, searchText, setSearchText, shortMovies, setShortM
   const isMobile = windowDimension <= 500;
 
   const handleSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
-
-    localStorage.setItem('searchText', inputValue);
-    setSearchText(inputValue);
-    onSubmit();
+    onSearchSubmit(inputValue);
+    setLoading(false);
   };
 
   const onInputChange = (e) => {
@@ -38,11 +37,11 @@ function SearchForm({onSubmit, searchText, setSearchText, shortMovies, setShortM
         isMobile &&
         <div className='searchForm'>
           <form className='searchForm__search-input' method='POST' onSubmit={handleSubmit}>
-              <input className="searchForm__input" value={ searchText } id="movies" name="movies" type="submit" placeholder='Фильм' required />
-            <button className='searchForm__button-search' type='submit'>Найти</button>
+              <input className="searchForm__input" value={ inputValue } onChange={onInputChange} id="movies" name="movies" type="submit" placeholder='Фильм' required />
+            <button className='searchForm__button-search' type='submit' onClick={ handleSubmit }>Найти</button>
           </form>
           <div className='searchForm__container'>
-            <FilterCheckbox />
+            <FilterCheckbox shortMovies={shortMovies} setShortMovies={setShortMovies}/>
           </div>
         </div>
       }

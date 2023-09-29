@@ -10,3 +10,5 @@ export const REQUEST_ERROR = 'Во время запроса произошла 
 export const NAME_IS_NOT_VALID = 'Имя содержит недопустимые символы';
 export const EMAIL_IS_NOT_VALID = 'Неверный адрес почты';
 export const PASSWORD_IS_NOT_VALID = 'пароль должен содержать минимум 8 символов';
+export const TRY_TO_FIND = 'Введите поисковый запрос';
+export const NO_SAVED_MOVIES = 'Нет сохраненных фильмов';

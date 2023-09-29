@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Preloader from '../Preloader/Preloader';
 import { nameIsValid, emailIsValid } from '../../utils/utils';
@@ -21,7 +21,12 @@ const ProfileEdit = ({onEdit, updateUserStatus, loading}) => {
     onEdit(name, email);
   };
 
-  const submitDisable = () => (!emailIsValid(email) || !nameIsValid(name));
+  useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]);
+
+  const submitDisable = () => (!emailIsValid(email) || !nameIsValid(name) || (email === currentUser.email && name === currentUser.name));
 
   return (
     <>
@@ -29,14 +34,14 @@ const ProfileEdit = ({onEdit, updateUserStatus, loading}) => {
       {
         !loading &&
         <div className='profile'>
-          <p className='profile__title'>{`Привет, ${currentUser.name}!`}</p>
+          <p className='profile__title'>{`Привет, ${currentUser.name || ''}!`}</p>
           <form method='POST' onSubmit={handleSubmit}>
             <div className='profile__group'>
               <p className='profile__text'>Имя</p>
               <input className='profile__text profile__text_type_userdata profileEdit__input' value={name} onChange={(e) => onInputChange(e, setName)} id="name" name="name" type="name" minLength={2} />
             </div>
             {
-              !!name.length && !nameIsValid(name) &&
+              name !== undefined && !!name.length && !nameIsValid(name) &&
               <div className='auth__error'>
                 <p className='auth__error-text'>{NAME_IS_NOT_VALID}</p>
               </div>
@@ -46,7 +51,7 @@ const ProfileEdit = ({onEdit, updateUserStatus, loading}) => {
               <input className='profile__text profile__text_type_userdata profileEdit__input' value={email} onChange={(e) => onInputChange(e, setEmail)} id="email" name="email" type="email" minLength={2} />
             </div>
             {
-              !!email.length && !emailIsValid(email) &&
+              email !== undefined && !!email.length && !emailIsValid(email) &&
               <div className='auth__error'>
                 <p className='auth__error-text'>{EMAIL_IS_NOT_VALID}</p>
               </div>

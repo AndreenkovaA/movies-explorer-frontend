@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
-import { NOT_FOUND_ERROR } from '../../utils/constants';
+import { NOT_FOUND_ERROR, TRY_TO_FIND, NO_SAVED_MOVIES } from '../../utils/constants';
 
-function MoviesCardList({movies, savedPage, likeMovie, dislikeMovie, collectionIds, shortMovies, loading}) {
+function MoviesCardList({movies, savedPage, likeMovie, dislikeMovie, collectionIds, shortMovies, loading, searchText, setLoading}) {
   const [windowDimension, setWindowDimension] = useState();
-  const [initMoviesNum, setInitMoviesNum] = useState();
-  const [moviesNum, setMoviesNum] = useState(initMoviesNum);
+  const [moviesNum, setMoviesNum] = useState(0);
+  const [moviesIncNum, setMoviesIncNum] = useState(0);
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [slicedMovies, setSlicedMovies] = useState([]);
 
   const inCollection = (id) => (!!collectionIds.filter((item) => ( item.numId === id))?.length);
 
@@ -26,53 +27,78 @@ function MoviesCardList({movies, savedPage, likeMovie, dislikeMovie, collectionI
 
   useEffect(() => {
     if (windowDimension <= 444) {
-      setInitMoviesNum(5);
       setMoviesNum(5);
+      setMoviesIncNum(2);
     } else if (windowDimension <= 768) {
-      setInitMoviesNum(8);
       setMoviesNum(8);
+      setMoviesIncNum(2);
     } else {
-      setInitMoviesNum(16);
       setMoviesNum(16);
+      setMoviesIncNum(4);
     }
   }, [windowDimension]);
 
   useEffect(() => {
     if (!movies?.length) {
       setFilteredMovies([]);
-    } else if (savedPage) {
-      setFilteredMovies(movies);
-    } else if (shortMovies) {
-      setFilteredMovies(movies.filter((movie) => movie.duration < 40).slice(0, moviesNum));
+      setSlicedMovies([]);
     } else {
-      setFilteredMovies(movies.slice(0, moviesNum));
+      if (shortMovies) {
+        setFilteredMovies(movies.filter((movie) => movie.duration < 40));
+        setSlicedMovies(movies.filter((movie) => movie.duration < 40).slice(0, moviesNum));
+      } else {
+        setFilteredMovies(movies);
+        setSlicedMovies(movies.slice(0, moviesNum));
+      }
     }
   }, [movies, moviesNum, shortMovies, savedPage]);
 
   const addMovies = () => {
-    setMoviesNum(moviesNum + initMoviesNum);
+    setMoviesNum(moviesNum + moviesIncNum);
   }
+
+  const emptyText = () => {
+    if (savedPage) {
+      if (!searchText?.length) {
+        return NO_SAVED_MOVIES;
+      } else {
+        return NOT_FOUND_ERROR;
+      }
+    } else {
+      if (!searchText?.length) {
+        return TRY_TO_FIND;
+      } else {
+        return NOT_FOUND_ERROR;
+      }
+    }
+  };
 
   return (
     <>
       {loading && <Preloader />}
       {
         !loading && !filteredMovies?.length &&
-        <p className='profile__textlink profileEdit__text'>{NOT_FOUND_ERROR}</p>
+        <p className='profile__textlink profileEdit__text'>{emptyText()}</p>
       }
       {
         !loading &&
         <div className='moviesCardList'>
           <div className='moviesCardList__grid'>
             {
-              filteredMovies &&
-              filteredMovies.map((movie, index) => (
-                <MoviesCard key={ `movie-${index}` } movie={ movie } savedPage={savedPage} likeMovie={likeMovie} dislikeMovie={dislikeMovie} liked={inCollection(movie.id)}/>
+              !savedPage && slicedMovies &&
+              slicedMovies.map((movie, _index) => (
+                <MoviesCard key={ `movie-${movie.id}` } movie={ movie } savedPage={savedPage} likeMovie={likeMovie} dislikeMovie={dislikeMovie} liked={inCollection(movie.id)}/>
+              ))
+            }
+            {
+              savedPage && filteredMovies &&
+              filteredMovies.map((movie, _index) => (
+                <MoviesCard key={ `movie-${movie.id}` } movie={ movie } savedPage={savedPage} likeMovie={likeMovie} dislikeMovie={dislikeMovie} liked={inCollection(movie.id)}/>
               ))
             }
           </div>
           {
-            filteredMovies && movies?.length > moviesNum && !savedPage &&
+            !savedPage && filteredMovies && filteredMovies.length > moviesNum &&
             <button className='moviesCardList__button-else' onClick={addMovies}>Ещё</button>
           }
         </div>

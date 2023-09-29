@@ -29,12 +29,13 @@ function App() {
   const [moviesCollection, setMoviesCollection] = useState(JSON.parse(localStorage.getItem('collection')) || []);
   const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem('shortMovies')) || false);
   const [searchText, setSearchText] = useState(localStorage.getItem('searchText') || '');
+  const [savedSearchText, setSavedSearchText] = useState(localStorage.getItem('savedSearchText') || '');
   const [updateUserStatus, setUpdateUserStatus] = useState('')
   const [registerStatus, setRegisterStatus] = useState('')
   const [loginStatus, setLoginStatus] = useState('')
 
   const [loading, setLoading] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token') || false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,12 +45,10 @@ function App() {
   const moviesIds = moviesCollection.map((item) => ({ numId: item.movieId, hexId: item._id }));
   const [collectionIds, setCollectionIds] = useState(moviesIds);
 
-  const onSearchSubmit = async () => {
-    setLoading(true);
-    const movies = await getMovies();
-    localStorage.setItem('movies', JSON.stringify(movies));
-    setMovies(movies);
-    setLoading(false);
+  const onSearchSubmit = () => {
+    if (!movies.length) {
+      getMoviesData();
+    }
   };
 
   const getMoviesData = async (isLoggedIn = false) => {
@@ -83,9 +82,9 @@ function App() {
     setLoading(true);
     try {
       const user = await register(name, email, password);
-      localStorage.setItem('token', user.token);
+      const tokenData = await autorize(email, password);
+      localStorage.setItem('token', tokenData.token);
       setCurrentUser(user.data);
-
       setLoggedIn(true);
       navigate('/movies');
     } catch (err) {
@@ -103,9 +102,6 @@ function App() {
       localStorage.setItem('token', user.token);
       setCurrentUser(user.data);
       setLoggedIn(true);
-      if (!!searchText.length) {
-        getMoviesData();
-      }
       getCollection();
       navigate('/movies');
     } catch (err) {
@@ -159,14 +155,17 @@ function App() {
 
   const handleLogOut = () => {
     setLoading(true);
+    setMovies([]);
+    setMoviesCollection([]);
+    setCollectionIds([]);
+    setSearchText('');
     localStorage.removeItem('token');
     localStorage.removeItem('movies');
-    setMovies([]);
     localStorage.removeItem('collection');
     localStorage.removeItem('searchText');
-    setSearchText('');
     localStorage.removeItem('shortMovies');
     localStorage.removeItem('filteredMovies');
+    localStorage.removeItem('savedSearchText');
     setCurrentUser({});
     setLoggedIn(false);
     navigate('/');
@@ -191,10 +190,10 @@ function App() {
   };
 
   useEffect(() => {
-    if (token && token !== undefined) {
+    if (loggedIn && token && token !== undefined) {
       checkIfLogin();
     }
-  }, [token]);
+  }, [loggedIn, token]);
 
   useEffect(() => {
     if (!!searchText) {
@@ -203,11 +202,19 @@ function App() {
     setLoading(false);
   }, []);
 
+  useEffect(() => {
+    setSavedSearchText('');
+    if ((location.pathname === '/signin' || location.pathname === '/signup') && loggedIn) {
+      navigate('/movies');
+    }
+  }, [location.pathname]);
+
+
   return (
     <>
       <Routes>
-        <Route path="/signup" element={<Register onRegister={handleRegister} loading={loading} registerStatus={registerStatus}/>} />
-        <Route path="/signin" element={<Login onLogin={handleLogin} loading={loading} loginStatus={loginStatus}/>} />
+        <Route path="/signup" element={<Register onRegister={handleRegister} loading={loading} loggedIn={loggedIn} registerStatus={registerStatus}/>} />
+        <Route path="/signin" element={<Login onLogin={handleLogin} loading={loading} loggedIn={loggedIn} loginStatus={loginStatus}/>} />
         <Route path="/" element={
           <CurrentUserContext.Provider value={{ currentUser }}>
             <Header
@@ -215,6 +222,7 @@ function App() {
               linkexit="Войти"
               routeup="/signup"
               linkregister="Регистрация"
+              loggedIn={loggedIn}
             />
             <Main />
             <Footer />
@@ -224,10 +232,9 @@ function App() {
         <Route path="/movies" element={
           <CurrentUserContext.Provider value={{ currentUser }}>
             <Popup showMobileMenu={showMobileMenu} setShowMobileMenu={setShowMobileMenu} />
-            <Header showMobileMenu={showMobileMenu} setShowMobileMenu={setShowMobileMenu} loggedIn />
+            <Header showMobileMenu={showMobileMenu} setShowMobileMenu={setShowMobileMenu} loggedIn={loggedIn} />
             <ProtectedRoute
               Component={Movies}
-              onSearchSubmit={onSearchSubmit}
               shortMovies={shortMovies}
               setShortMovies={setShortMovies}
               movies={movies}
@@ -238,6 +245,8 @@ function App() {
               searchText={searchText}
               setSearchText={setSearchText}
               loading={loading}
+              setLoading={setLoading}
+              onSearchSubmit={onSearchSubmit}
             />
             <Footer />
           </CurrentUserContext.Provider>
@@ -246,7 +255,7 @@ function App() {
         <Route path="/saved-movies" element={
           <CurrentUserContext.Provider value={{ currentUser }}>
             <Popup showMobileMenu={showMobileMenu} setShowMobileMenu={setShowMobileMenu}/>
-            <Header showMobileMenu={showMobileMenu} setShowMobileMenu={setShowMobileMenu} loggedIn/>
+            <Header showMobileMenu={showMobileMenu} setShowMobileMenu={setShowMobileMenu} loggedIn={loggedIn}/>
             <ProtectedRoute
               Component={SavedMovies}
               movies={moviesCollection}
@@ -256,10 +265,10 @@ function App() {
               likeMovie={likeMovie}
               dislikeMovie={dislikeMovie}
               collectionIds={collectionIds}
-              searchText={searchText}
-              setSearchText={setSearchText}
-              onSearchSubmit={onSearchSubmit}
+              searchText={savedSearchText}
+              setSearchText={setSavedSearchText}
               loading={loading}
+              setLoading={setLoading}
               savedPage
             />
             <Footer />
@@ -269,7 +278,7 @@ function App() {
         <Route path="/profile" element={
           <CurrentUserContext.Provider value={{ currentUser }}>
             <Popup showMobileMenu={showMobileMenu} setShowMobileMenu={setShowMobileMenu}/>
-            <Header showMobileMenu={showMobileMenu} setShowMobileMenu={setShowMobileMenu} loggedIn route/>
+            <Header showMobileMenu={showMobileMenu} setShowMobileMenu={setShowMobileMenu} loggedIn={loggedIn} route/>
             <ProtectedRoute
               Component={Profile}
               loggedIn={loggedIn}
@@ -281,7 +290,7 @@ function App() {
         <Route path="/edit" element={
           <CurrentUserContext.Provider value={{ currentUser }}>
             <Popup showMobileMenu={showMobileMenu} setShowMobileMenu={setShowMobileMenu}/>
-            <Header showMobileMenu={showMobileMenu} setShowMobileMenu={setShowMobileMenu} loggedIn route/>
+            <Header showMobileMenu={showMobileMenu} setShowMobileMenu={setShowMobileMenu} loggedIn={loggedIn} route/>
             <ProtectedRoute
               Component={ProfileEdit}
               loggedIn={loggedIn}

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import SearchForm from './../SearchForm/SearchForm';
 import MoviesCardList from './../MoviesCardList/MoviesCardList';
+import Preloader from '../Preloader/Preloader';
 
-function Movies({onSearchSubmit, movies, likeMovie, dislikeMovie, collectionIds, searchText, setSearchText, shortMovies, setShortMovies, loading}) {
+function Movies({movies, likeMovie, dislikeMovie, collectionIds, searchText, setSearchText, shortMovies, setShortMovies, loading, setLoading, onSearchSubmit}) {
   const [filteredMovies, setFilteredMovies] = useState(movies || []);
 
   useEffect(() => {
@@ -13,18 +14,24 @@ function Movies({onSearchSubmit, movies, likeMovie, dislikeMovie, collectionIds,
       );
       setFilteredMovies(filtered);
     } else {
-      setFilteredMovies(!!movies?.length ? movies : {})
+      setFilteredMovies([])
     }
   }, [movies, searchText]);
+
+  const onMoviesSearch = (text) => {
+    localStorage.setItem('searchText', text);
+    setSearchText(text);
+    onSearchSubmit();
+  };
 
   return (
     <>
       <SearchForm
-        onSubmit={onSearchSubmit}
         searchText={searchText}
-        setSearchText={setSearchText}
         shortMovies={shortMovies}
         setShortMovies={setShortMovies}
+        setLoading={setLoading}
+        onSearchSubmit={onMoviesSearch}
       />
       <MoviesCardList
         movies={filteredMovies}
@@ -34,6 +41,7 @@ function Movies({onSearchSubmit, movies, likeMovie, dislikeMovie, collectionIds,
         searchText={searchText}
         shortMovies={shortMovies}
         loading={loading}
+        setLoading={setLoading}
       />
     </>
   );

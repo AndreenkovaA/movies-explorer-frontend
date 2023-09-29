@@ -92,7 +92,13 @@
   opacity: 0;
 }
 
-.moviesCard__button_type_delete:hover {
+@media screen and (max-width: 400px) {
+  .moviesCard__button_type_delete {
+    opacity: 1;
+  }
+}
+
+.moviesCard:hover .moviesCard__button_type_delete {
   opacity: 1;
 }
 

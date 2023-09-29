@@ -8,12 +8,12 @@ export const getResponseData = (res) => {
 };
 
 export const emailIsValid = (email) => {
-if (validator.isEmail(email)) {
+if (email !== undefined && validator.isEmail(email)) {
     return true;
 }
 return false;
 };
 
-export const passwordIsValid = (password) => (password.length >=8 && /^[a-zA-Zа-яА-Я0-9_!"№;%:?*()<>]*$/.test(password));
-export const nameIsValid = (name) => (name.length >=2 && /^[a-zA-Zа-яА-Я- ]*$/.test(name));
+export const passwordIsValid = (password) => (password !== undefined && password.length >=8 && /^[a-zA-Zа-яА-Я0-9_!"№;%:?*()<>]*$/.test(password));
+export const nameIsValid = (name) => (name !== undefined && name.length >=2 && /^[a-zA-Zа-яА-Я- ]*$/.test(name));
 

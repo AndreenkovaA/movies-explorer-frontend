@@ -14,7 +14,7 @@ export const addMovie = async (data) => {
       nameEN: data.nameEN,
       country: data.country,
       director: data.director,
-      duration: `${data.duration}`,
+      duration: data.duration,
       description: data.description,
       trailerLink: data.trailerLink,
       image: `https://api.nomoreparties.co${data.image.url}`,

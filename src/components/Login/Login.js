@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Preloader from '../Preloader/Preloader';
 import { emailIsValid, passwordIsValid } from '../../utils/utils';
 import { EMAIL_IS_NOT_VALID, PASSWORD_IS_NOT_VALID } from '../../utils/constants';
 
-const Login = ({onLogin, loading, loginStatus}) => {
+const Login = ({onLogin, loading, loginStatus, loggedIn}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const onInputChange = (e, func) => {
     func(e.target.value);
@@ -19,6 +20,12 @@ const Login = ({onLogin, loading, loginStatus}) => {
     }
     onLogin(email, password);
   };
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/movies');
+    }
+  }, []);
 
   const submitDisable = () => (!emailIsValid(email) || !passwordIsValid(password));
 

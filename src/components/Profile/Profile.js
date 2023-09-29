@@ -12,7 +12,7 @@ const Profile = ({loggedIn, onLogOut}) => {
   return (
     <>
       <div className='profile'>
-        <p className='profile__title'>{`Привет, ${currentUser.name}!`}</p>
+        <p className='profile__title'>{`Привет, ${currentUser.name || ''}!`}</p>
         <div>
           <div className='profile__group'>
             <p className='profile__text'>Имя</p>

@@ -4,7 +4,7 @@ import Preloader from '../Preloader/Preloader';
 import { nameIsValid, emailIsValid, passwordIsValid } from '../../utils/utils';
 import { NAME_IS_NOT_VALID, EMAIL_IS_NOT_VALID, PASSWORD_IS_NOT_VALID } from '../../utils/constants';
 
-const Register = ({onRegister, loading, registerStatus}) => {
+const Register = ({onRegister, loading, registerStatus, loggedIn}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
