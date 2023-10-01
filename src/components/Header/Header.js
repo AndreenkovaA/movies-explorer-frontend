@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import Account from '../Account/Account.js';
 
 function Header(props) {
   const [windowDimension, setWindowDimension] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     setWindowDimension(window.innerWidth);
@@ -25,7 +26,7 @@ function Header(props) {
   const isMobile = windowDimension <= 768;
 
   return (
-    <header className={`header${props.loggedIn ? ' header_type_profile' : ''}`}>
+    <header className={`header${props.loggedIn && location.pathname !== '/' ? ' header_type_profile' : ''}`}>
       <div className='header__elements'>
       <Link to='/' className='header__logo'></Link>
         {
@@ -34,7 +35,7 @@ function Header(props) {
           {
             isMobile &&
             <button
-              className='header__button-menu'
+              className={`header__button-menu${props.loggedIn && location.pathname === '/' ? ' header__button-menu-landing' : ''}`}
               onClick={onMobileMenuButtonClick}
             />
           }
@@ -48,16 +49,16 @@ function Header(props) {
               <Account />
             </>
           }
-        </>         
+        </>
       }
       {!props.loggedIn &&
         <div className='header__group'>
           <Link to={props.routeup} onClick={props.signOut} className="header__link-registr">{props.linkregister}</Link>
           <Link to={props.routein} onClick={props.signOut} className="header__link-exit">{props.linkexit}</Link>
         </div>
-          
+
         }
-      </div>      
+      </div>
     </header >
   );
 }

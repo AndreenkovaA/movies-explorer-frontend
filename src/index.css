@@ -11,6 +11,7 @@
 @import url(./components/Main/Portfolio/portfolio.css);
 @import url(./components/Footer/footer.css);
 @import url(./components/Profile/profile.css);
+@import url(./components/ProfileEdit/profileEdit.css);
 @import url(./blocks/auth/auth.css);
 @import url(./components/SearchForm/searchForm.css);
 @import url(./components/FilterCheckbox/filterCheckbox.css);

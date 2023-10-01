@@ -7,3 +7,13 @@
 
 За основу взят макет из фигмы dark-1:
 https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?type=design&node-id=1-6312&mode=design&t=Sgk2tFCHTSPvCWA9-0
+
+## Ссылка на проект
+
+IP 158.160.120.10
+
+https://diplom.front.nomoredomainsrocks.ru
+
+## Ссылка на PR
+
+https://github.com/AndreenkovaA/movies-explorer-frontend/pull/2

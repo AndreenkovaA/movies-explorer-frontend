@@ -48,7 +48,7 @@
   text-decoration: none;
 }
 
-.header__group:hover {
+.header__group_type_profile:hover {
   opacity: 0.7;
   cursor: pointer;
 }
@@ -157,7 +157,6 @@
   }
 }
 
-.header__button-menu:hover {
-  opacity: 0.7;
-  cursor: pointer;
+.header__button-menu-landing {
+  background-color: rgba(7, 48, 66, 1);
 }

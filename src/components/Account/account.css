@@ -48,3 +48,7 @@
   background-color: rgba(49, 49, 49, 1);
   border-radius: 26px;
 }
+
+.account__icon_type_landing {
+  background-color: rgba(15, 65, 87, 1);
+}
