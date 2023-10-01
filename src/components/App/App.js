@@ -218,11 +218,14 @@ function App() {
         <Route path="/signin" element={<Login onLogin={handleLogin} loading={loading} loggedIn={loggedIn} loginStatus={loginStatus}/>} />
         <Route path="/" element={
           <CurrentUserContext.Provider value={{ currentUser }}>
+            <Popup showMobileMenu={showMobileMenu} setShowMobileMenu={setShowMobileMenu} />
             <Header
               routein="/signin"
               linkexit="Войти"
               routeup="/signup"
               linkregister="Регистрация"
+              showMobileMenu={showMobileMenu}
+              setShowMobileMenu={setShowMobileMenu}
               loggedIn={loggedIn}
             />
             <Main />

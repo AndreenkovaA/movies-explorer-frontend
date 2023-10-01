@@ -35,7 +35,7 @@ function Header(props) {
           {
             isMobile &&
             <button
-              className='header__button-menu'
+              className={`header__button-menu${props.loggedIn && location.pathname === '/' ? ' header__button-menu-landing' : ''}`}
               onClick={onMobileMenuButtonClick}
             />
           }
