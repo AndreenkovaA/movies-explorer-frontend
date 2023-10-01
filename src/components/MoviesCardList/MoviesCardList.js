@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
-import { NOT_FOUND_ERROR, TRY_TO_FIND, NO_SAVED_MOVIES } from '../../utils/constants';
+import {
+  NOT_FOUND_ERROR,
+  TRY_TO_FIND, NO_SAVED_MOVIES,
+  MOBILE_RESOLUTION,
+  TABLET_RESOLUTION,
+  MOBILE_CARDS_NUM,
+  TABLET_CARDS_NUM,
+  DESKTOP_CARDS_NUM,
+  DESKTOP_MORE,
+  MOBILE_MORE,
+  TABLET_MORE,
+  SHORT_MOVIES_DURATION
+} from '../../utils/constants';
 
 function MoviesCardList({movies, savedPage, likeMovie, dislikeMovie, collectionIds, shortMovies, loading, searchText, setLoading}) {
   const [windowDimension, setWindowDimension] = useState();
@@ -26,15 +38,15 @@ function MoviesCardList({movies, savedPage, likeMovie, dislikeMovie, collectionI
   }, []);
 
   useEffect(() => {
-    if (windowDimension <= 444) {
-      setMoviesNum(5);
-      setMoviesIncNum(2);
-    } else if (windowDimension <= 768) {
-      setMoviesNum(8);
-      setMoviesIncNum(2);
+    if (windowDimension <= MOBILE_RESOLUTION) {
+      setMoviesNum(MOBILE_CARDS_NUM);
+      setMoviesIncNum(MOBILE_MORE);
+    } else if (windowDimension <= TABLET_RESOLUTION) {
+      setMoviesNum(TABLET_CARDS_NUM);
+      setMoviesIncNum(TABLET_MORE);
     } else {
-      setMoviesNum(16);
-      setMoviesIncNum(4);
+      setMoviesNum(DESKTOP_CARDS_NUM);
+      setMoviesIncNum(DESKTOP_MORE);
     }
   }, [windowDimension]);
 
@@ -44,8 +56,8 @@ function MoviesCardList({movies, savedPage, likeMovie, dislikeMovie, collectionI
       setSlicedMovies([]);
     } else {
       if (shortMovies) {
-        setFilteredMovies(movies.filter((movie) => movie.duration < 40));
-        setSlicedMovies(movies.filter((movie) => movie.duration < 40).slice(0, moviesNum));
+        setFilteredMovies(movies.filter((movie) => movie.duration < SHORT_MOVIES_DURATION));
+        setSlicedMovies(movies.filter((movie) => movie.duration < SHORT_MOVIES_DURATION).slice(0, moviesNum));
       } else {
         setFilteredMovies(movies);
         setSlicedMovies(movies.slice(0, moviesNum));
@@ -93,7 +105,7 @@ function MoviesCardList({movies, savedPage, likeMovie, dislikeMovie, collectionI
             {
               savedPage && filteredMovies &&
               filteredMovies.map((movie, _index) => (
-                <MoviesCard key={ `movie-${movie.id}` } movie={ movie } savedPage={savedPage} likeMovie={likeMovie} dislikeMovie={dislikeMovie} liked={inCollection(movie.id)}/>
+                <MoviesCard key={ `movie-${movie.movieId}` } movie={ movie } savedPage={savedPage} likeMovie={likeMovie} dislikeMovie={dislikeMovie} liked={inCollection(movie.id)}/>
               ))
             }
           </div>

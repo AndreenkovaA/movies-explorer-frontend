@@ -12,3 +12,15 @@ export const EMAIL_IS_NOT_VALID = 'Неверный адрес почты';
 export const PASSWORD_IS_NOT_VALID = 'пароль должен содержать минимум 8 символов';
 export const TRY_TO_FIND = 'Введите поисковый запрос';
 export const NO_SAVED_MOVIES = 'Нет сохраненных фильмов';
+
+export const TABLET_RESOLUTION= 1000;
+export const MOBILE_RESOLUTION = 550;
+export const DESKTOP_CARDS_NUM = 16;
+export const TABLET_CARDS_NUM = 8;
+export const MOBILE_CARDS_NUM = 5;
+
+export const DESKTOP_MORE = 4;
+export const TABLET_MORE = 2;
+export const MOBILE_MORE = 2;
+
+export const SHORT_MOVIES_DURATION = 40;

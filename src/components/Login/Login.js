@@ -37,7 +37,7 @@ const Login = ({onLogin, loading, loginStatus, loggedIn}) => {
       <div className="auth">
         <Link to='/' className='auth__logo'></Link>
         <p className="auth__title auth__title_type_auth">Рады видеть!</p>
-        <form className="auth__form">
+        <form className="auth__form" onSubmit={handleSubmit}>
           <div className='auth__field'>
             E-mail
             <input className="auth__input" id="email" name="email" type="email" onChange={(e) => onInputChange(e, setEmail)} required />

@@ -1,7 +1,7 @@
 import React, {useState, useEffect } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({searchText, shortMovies, setShortMovies, setLoading, onSearchSubmit}) {
+function SearchForm({searchText, shortMovies, setShortMovies, setLoading, onSearchSubmit, savedPage}) {
   const [windowDimension, setWindowDimension] = useState(null);
   const [inputValue, setInputValue] = useState(searchText);
 
@@ -21,8 +21,8 @@ function SearchForm({searchText, shortMovies, setShortMovies, setLoading, onSear
   const isMobile = windowDimension <= 500;
 
   const handleSubmit = (e) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
     onSearchSubmit(inputValue);
     setLoading(false);
   };
@@ -37,25 +37,25 @@ function SearchForm({searchText, shortMovies, setShortMovies, setLoading, onSear
         isMobile &&
         <div className='searchForm'>
           <form className='searchForm__search-input' method='POST' onSubmit={handleSubmit}>
-              <input className="searchForm__input" value={ inputValue } onChange={onInputChange} id="movies" name="movies" type="submit" placeholder='Фильм' required />
+            <input className="searchForm__input" value={ inputValue } onChange={onInputChange} id="movies" name="movies" type="movies" placeholder='Фильм' required />
             <button className='searchForm__button-search' type='submit' onClick={ handleSubmit }>Найти</button>
           </form>
           <div className='searchForm__container'>
-            <FilterCheckbox shortMovies={shortMovies} setShortMovies={setShortMovies}/>
+            <FilterCheckbox shortMovies={shortMovies} setShortMovies={setShortMovies} savedPage={savedPage}/>
           </div>
         </div>
       }
       {
         !isMobile &&
         <div className='searchForm'>
-          <div className='searchForm__search-input'>
+          <div className='searchForm__search-input' method='POST' onSubmit={handleSubmit}>
             <div className='searchForm__icon'></div>
             <input className="searchForm__input" id="movies" name="movies" type="movies" placeholder='Фильм' value={ inputValue } onChange={onInputChange} required />
             <div className='searchForm__vertical-line'>
               <button className='searchForm__button-search' type='button' onClick={ handleSubmit }>Найти</button>
             </div>
             <div className='searchForm__container'>
-              <FilterCheckbox shortMovies={shortMovies} setShortMovies={setShortMovies}/>
+              <FilterCheckbox shortMovies={shortMovies} setShortMovies={setShortMovies} savedPage={savedPage}/>
             </div>
           </div>
         </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 
-function FilterCheckbox({shortMovies,setShortMovies}) {
+function FilterCheckbox({shortMovies, setShortMovies, savedPage}) {
   const handleChange = (e) => {
     setShortMovies(e.target.checked);
-    localStorage.setItem('shortMovies', e.target.checked);
+    localStorage.setItem(savedPage ? 'shortSavedMovies' : 'shortMovies', e.target.checked);
   };
 
   return (

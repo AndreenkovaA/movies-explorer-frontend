@@ -4,7 +4,7 @@
   position: relative;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   .moviesCard {
     height: 268px;
   }
@@ -21,7 +21,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   .moviesCard__movies {
     height: 190px;
   }
@@ -38,6 +38,12 @@
   display: flex;
   justify-content: space-between;
   margin: 6px auto 26px;
+}
+
+@media screen and (max-width: 1000px) {
+  .moviesCard__group {
+    max-width: 419px;
+  }
 }
 
 @media screen and (max-width: 800px) {

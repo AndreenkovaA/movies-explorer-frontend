@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import Header from '../Header/Header.js';
 import Main from '../Main/Main.js';
@@ -28,6 +28,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [moviesCollection, setMoviesCollection] = useState(JSON.parse(localStorage.getItem('collection')) || []);
   const [shortMovies, setShortMovies] = useState(JSON.parse(localStorage.getItem('shortMovies')) || false);
+  const [shortSavedMovies, setShortSavedMovies] = useState(JSON.parse(localStorage.getItem('shortSavedMovies')) || false);
   const [searchText, setSearchText] = useState(localStorage.getItem('searchText') || '');
   const [savedSearchText, setSavedSearchText] = useState(localStorage.getItem('savedSearchText') || '');
   const [updateUserStatus, setUpdateUserStatus] = useState('')
@@ -164,6 +165,7 @@ function App() {
     localStorage.removeItem('collection');
     localStorage.removeItem('searchText');
     localStorage.removeItem('shortMovies');
+    localStorage.removeItem('shortSavedMovies');
     localStorage.removeItem('filteredMovies');
     localStorage.removeItem('savedSearchText');
     setCurrentUser({});
@@ -172,28 +174,28 @@ function App() {
     setLoading(false);
   };
 
-  const checkIfLogin = async () => {
+  const checkIfLogin = useCallback(async () => {
+    const token = localStorage.getItem('token');
     try {
-      const user = await checkToken(token);
-      setCurrentUser(user.data);
-      setLoggedIn(true);
-      if (!!searchText) {
-        getMoviesData(true);
+      if (token) {
+        const user = await checkToken(token);
+        if (user) {
+          setLoggedIn(true);
+          setCurrentUser(user.data);
+        }
       }
-      navigate(location.pathname === '/' ? '/movies' : location.pathname);
     } catch (err) {
-      console.log(err);
-      // setLoginStatus(LOGIN_ERROR_MESSAGE);
+      console.error(err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    if (loggedIn && token && token !== undefined) {
+    if (loggedIn) {
       checkIfLogin();
     }
-  }, [loggedIn, token]);
+  }, [loggedIn, checkIfLogin]);
 
   useEffect(() => {
     if (!!searchText) {
@@ -208,7 +210,6 @@ function App() {
       navigate('/movies');
     }
   }, [location.pathname]);
-
 
   return (
     <>
@@ -259,8 +260,8 @@ function App() {
             <ProtectedRoute
               Component={SavedMovies}
               movies={moviesCollection}
-              shortMovies={shortMovies}
-              setShortMovies={setShortMovies}
+              shortMovies={shortSavedMovies}
+              setShortMovies={setShortSavedMovies}
               loggedIn={loggedIn}
               likeMovie={likeMovie}
               dislikeMovie={dislikeMovie}

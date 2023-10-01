@@ -29,6 +29,7 @@ function SavedMovies({savedPage, movies, collectionIds, likeMovie, dislikeMovie,
         setShortMovies={setShortMovies}
         setLoading={setLoading}
         onSearchSubmit={onSavedMoviesSearch}
+        savedPage={true}
       />
       <MoviesCardList
         movies={filteredMovies}
